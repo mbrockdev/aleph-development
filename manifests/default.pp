@@ -28,19 +28,19 @@ exec { 'install_jansson':
 }
 
 exec { 'get_atmel':
-  command => 'cp /vagrant/avr32*.tar.gz /home/vagrant ; cp /vagrant/atmel*.zip /home/vagrant',
+  command => 'cp /vagrant/avr32*.tar.gz /home/vagrant ; cp /vagrant/avr32*.zip /home/vagrant',
   path => '/bin',
 }
 
 exec { 'unzip_atmel':
-  command => 'unzip atmel-headers-6.1.3.1475.zip',
+  command => 'unzip avr32-headers-6.2.0.742.zip',
   path => '/usr/bin',
   require => [ Package['unzip'], Exec['get_atmel'] ],
   cwd => '/home/vagrant',
 }
 
 exec { 'untar_atmel':
-  command => 'tar xvzf avr32-gnu-toolchain-3.4.2.435-linux.any.x86_64.tar.gz',
+  command => 'tar xvzf avr32-gnu-toolchain-3.4.3.820-linux.any.x86_64.tar.gz',
   path => '/bin',
   require => Exec['get_atmel'],
   cwd => '/home/vagrant',
@@ -66,7 +66,7 @@ exec { 'update_path':
 }
 
 exec { 'setup_avr32':
-  command => 'mv avr32-gnu-toolchain-linux_x86_64 avr32-gnu-toolchain ; cp -R /atmel-headers-6.1.3.1475/avr avr32-gnu-toolchain/avr32/include/ ; cp -R atmel-headers-6.1.3.1475/avr32 avr32-gnu-toolchain/avr32/include/',
+  command => 'mv avr32-gnu-toolchain-linux_x86_64 avr32-gnu-toolchain ; cp -R ./avr32 avr32-gnu-toolchain/avr32/include/',
   path => '/bin',
   require => [ Exec['untar_atmel'], Exec['unzip_atmel'] ],
   cwd => '/home/vagrant',
