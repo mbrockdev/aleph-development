@@ -14,6 +14,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.hostname = "aleph-dev.example.com"
 
+ config.vm.provider "libvirt" do |libvirt|
+      libvirt.driver = "kvm"
+      libvirt.memory = 1024
+      libvirt.cpus = 1
+      libvirt.graphics_port = 6102
+      libvirt.graphics_ip = '0.0.0.0'
+    end
+
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # config.vm.box_url = "http://domain.com/path/to/above.box"
